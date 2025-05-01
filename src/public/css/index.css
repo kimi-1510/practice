@@ -1,0 +1,8 @@
+/* Make images clickable by styling them as links */
+img {
+    cursor: pointer; /* Changes the cursor to a pointer when hovering over the image */
+}
+
+a img {
+    border: none; /* Removes any border around linked images */
+}

@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,4 +19,6 @@ use App\Http\Controllers\ProductController;
 
 // Route::middleware('auth')->group(function () {
     Route::get('/', [ProductController::class, 'index']);
+    Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
+
 // });
