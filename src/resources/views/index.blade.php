@@ -7,38 +7,41 @@
 @section('content')
 <div class="container">
     <h1>商品一覧</h1>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>画像</th>
-                <th>商品名</th>
-                <th>価格</th>
-                <th>説明</th>
-                <th>在庫数</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($products as $product)
-            <tr>
-                <td>{{ $product->id }}</td>
-                <td>
-                    @if($product->image)
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#productModal{{ $product->id }}">
-                        <img src="{{ asset('storage/images/' . $product->image) }}" alt="{{ $product->name }}" style="max-width: 100px;">
-                    </a>
-                    @else
-                    <span>画像なし</span>
-                    @endif
-                </td>
-                <td>{{ $product->name }}</td>
-                <td>{{ number_format($product->price) }}円</td>
-                <td>{{ $product->description }}</td>
-                <td>{{ $product->stock }}</td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+        <div class="text-end">
+            <a href="{{ route('cart.index') }}" class="btn btn-primary">カートを見る</a>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>画像</th>
+                    <th>商品名</th>
+                    <th>価格</th>
+                    <th>説明</th>
+                    <th>在庫数</th>
+                </tr>
+            </thead>
+                <tbody>
+                    @foreach($products as $product)
+                    <tr>
+                        <td>{{ $product->id }}</td>
+                        <td>
+                        @if($product->image)
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#productModal{{ $product->id }}">
+                            <img src="{{ asset('storage/images/' . $product->image) }}" alt="{{ $product->name }}" style="max-width: 100px;">
+                            </a>
+                        @else
+                        <span>画像なし</span>
+                        @endif
+                        </td>
+                        <td>{{ $product->name }}</td>
+                        <td>{{ number_format($product->price) }}円</td>
+                        <td>{{ $product->description }}</td>
+                        <td>{{ $product->stock }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+        </table>
 </div>
 
 @foreach ($products as $product)
@@ -53,12 +56,15 @@
             <div class="modal-body">
                 <img src="{{ asset('storage/images/' . $product->image) }}" alt="{{ $product->name }}" class="img-fluid mb-3">
                 <p>{{ $product->description }}</p>
-                <p>価格: {{ $product->price }}円</p>
+                <p>価格: {{ number_format($product->price) }}円</p>
+                <p>在庫数: {{ $product->stock }}個</p>
             </div>
             <div class="modal-footer">
                 <form action="{{ route('cart.add', $product->id) }}" method="POST">
                     @csrf
-                    <button type="submit" class="btn btn-primary">カートに追加</button>
+                    <label for="quantity">数量:</label>
+                    <input type="number" name="quantity" id="quantity" value="1" min="1" class="form-control">
+                    <button type="submit" class="btn btn-primary mt-2">カートに追加</button>
                 </form>
             </div>
         </div>

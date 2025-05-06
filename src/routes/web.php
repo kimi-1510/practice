@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\OrderController;
 
 
 /*
@@ -20,5 +22,8 @@ use App\Http\Controllers\CartController;
 // Route::middleware('auth')->group(function () {
     Route::get('/', [ProductController::class, 'index']);
     Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
-
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+    Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 // });
